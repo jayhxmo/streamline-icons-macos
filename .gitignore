@@ -1,3 +1,7 @@
+# CUSTOM
+release-builds/
+release-builds/*
+
 # Logs
 logs
 *.log

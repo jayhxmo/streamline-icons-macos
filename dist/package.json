@@ -1,0 +1,9 @@
+{
+  "name": "Streamline Icons",
+  "version": "1.0.0",
+  "main": "./index.js",
+  "dependencies": {
+    "electron": "^5.0.0",
+    "electron-dl": "^1.14.0"
+  }
+}

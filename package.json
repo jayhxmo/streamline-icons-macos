@@ -1,0 +1,35 @@
+{
+  "name": "streamline-icons-macos",
+  "version": "1.0.0",
+  "description": "Streamline Icons web app => macOS app. Electron packaged.",
+  "main": "src/index.js",
+  "devDependencies": {
+    "@babel/core": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
+    "babel-loader": "^8.0.5",
+    "copy-webpack-plugin": "^5.0.3",
+    "electron": "^5.0.0",
+    "electron-dl": "^1.14.0",
+    "electron-packager": "^13.1.1",
+    "fs": "0.0.1-security",
+    "path": "^0.12.7",
+    "webpack": "^4.30.0",
+    "webpack-cli": "^3.3.1",
+    "webpack-dev-server": "^3.3.1"
+  },
+  "scripts": {
+    "start": "webpack --mode='development' && electron dist/.",
+    "dev": "webpack-dev-server --config webpack.config.js",
+    "package-mac": "webpack --mode='production' && electron-packager ./dist/. --overwrite --platform=darwin --arch=x64 --icon=assets/icons/mac/icon.icns --prune=true --out=release-builds"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jayhxmo/streamline-icons-macos.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jayhxmo/streamline-icons-macos/issues"
+  },
+  "homepage": "https://github.com/jayhxmo/streamline-icons-macos#readme"
+}
