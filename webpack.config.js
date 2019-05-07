@@ -3,7 +3,7 @@ const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-	entry: { index: './src/index.js', addTitleBar: './src/addTitleBar.js' },
+	entry: { index: './src/index.js', preload: './src/preload.js' },
 	output: {
 		path: path.join(__dirname, 'dist'),
 		filename: '[name].js'

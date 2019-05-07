@@ -2,21 +2,19 @@ console.log('Hello');
 
 import path from 'path';
 import fs from 'fs';
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, session } from 'electron';
 
 let mainWindow;
 
-console.log(path.join(__dirname, 'addTitleBar.js'));
-
 const assetsPath = path.join(__dirname, 'assets/icons/mac/');
-console.log(assetsPath);
-fs.readdir(assetsPath, function(err, items) {
-	console.log(items);
-
-	for (var i = 0; i < items.length; i++) {
-		console.log(items[i]);
-	}
-});
+// console.log(assetsPath);
+// fs.readdir(assetsPath, function(err, items) {
+// 	console.log(items);
+//
+// 	for (var i = 0; i < items.length; i++) {
+// 		console.log(items[i]);
+// 	}
+// });
 
 const createWindow = () => {
 	mainWindow = new BrowserWindow({
@@ -28,13 +26,21 @@ const createWindow = () => {
 		titleBarStyle: 'hidden',
 		show: false,
 		webPreferences: {
-			nodeIntegration: false
-			// preload: path.join(__dirname, 'addTitleBar.js')
+			nodeIntegration: false,
+			preload: path.join(__dirname, 'preload.js')
 			// preload: `document.body.innerHTML += '<div id="titleBar" style="-webkit-app-region: drag; position: fixed; z-index: 99999999; top: 0; left: 0; width: 100vh; height: 32px; border: 1px solid red;"></>';`
 		},
 		// icon: path.join(__dirname, 'assets/icons/mac/icon.icns')
 		icon: path.join(__dirname, 'assets/icons/png/64x64.png')
 	});
+
+	mainWindow.webContents.setUserAgent('herOagenT');
+	// mainWindow.openDevTools();
+	// mainWindow.on('closed', function() {
+	// 	mainWindow = null;
+	// });
+
+	global.window = null;
 
 	mainWindow.loadURL(`https://app.streamlineicons.com`);
 
@@ -43,23 +49,20 @@ const createWindow = () => {
 		e.preventDefault();
 	});
 
-	// });
-
 	// mainWindow.webContents.on('dom-ready', function(e) {
 	mainWindow.webContents.on('did-finish-load', () => {
 		mainWindow.webContents.insertCSS(
 			'.Icon_Menu, .Icons_Container { padding-top: 10px; !important; } ' +
 				'.IconSideMenu { padding-top: calc(1vh + 10px) !important; }'
 		);
-
-		// mainWindow.webContents.executeJavaScript('alert(3);');
-		// mainWindow.webContents.executeJavaScript(`alert(4);`);
-		// mainWindow.webContents.executeJavaScript(`alert(5);`);
 	});
 
 	mainWindow.webContents.on('dom-ready', () => {
 		mainWindow.webContents.executeJavaScript(
 			`
+				window.process = '';
+				process.versions.electron = false;
+
 				let titleBar = document.createElement('div');
 				titleBar.style='-webkit-app-region: drag; position: fixed; z-index: 99999999; top: 0; left: 0; width: 100vw; height: 24px;'
 				document.body.appendChild(titleBar);
